@@ -1,8 +1,9 @@
 import React from "react";
 import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 import { range } from "../../utils";
+import { checkGuess } from "../../game-helpers";
 
-function Guess({ guesses }) {
+function Guess({ guesses, answer }) {
   function maxLen() {
     return guesses.length < NUM_OF_GUESSES_ALLOWED
       ? guesses.length
@@ -10,9 +11,12 @@ function Guess({ guesses }) {
   }
 
   function generateCells(word) {
-    return word.split("").map((char, index) => (
-      <span key={index} className="cell">
-        {char}
+    return checkGuess(word, answer).map((result, index) => (
+      <span
+        key={index}
+        className={`cell ${result.letter === " " ? null : result.status}`}
+      >
+        {result.letter}
       </span>
     ));
   }
@@ -29,7 +33,7 @@ function Guess({ guesses }) {
       })}
       {range(guesses.length, NUM_OF_GUESSES_ALLOWED).map(() => (
         <p key={crypto.randomUUID()} className="guess">
-        {generateCells("     ")}
+          {generateCells("     ")}
         </p>
       ))}
     </div>
