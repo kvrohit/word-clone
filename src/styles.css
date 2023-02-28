@@ -230,3 +230,13 @@ h1 {
     transform: translateY(0%);
   }
 }
+
+.restart-button {
+  border: 1px solid white;
+  padding: 0 6px;
+  margin: 4px 2px;
+}
+
+.restart-button:active {
+  opacity: 0.8;
+}
